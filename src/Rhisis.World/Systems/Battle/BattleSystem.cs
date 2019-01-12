@@ -86,7 +86,10 @@ namespace Rhisis.World.Systems.Battle
                 defender.Health.Hp = 0;
                 this.ClearBattleTargets(defender);
                 this.ClearBattleTargets(attacker);
-                WorldPacketFactory.SendDie(attacker as IPlayerEntity, defender, attacker, e.AttackType);
+                if (attacker is IPlayerEntity attackPlayer)
+                    WorldPacketFactory.SendDie(attackPlayer, defender, attacker, e.AttackType);
+                if (defender is IPlayerEntity defendPlayer)
+                    WorldPacketFactory.SendDie(defendPlayer, defender, attacker, e.AttackType);
 
                 if (defender is IMonsterEntity deadMonster)
                 {
